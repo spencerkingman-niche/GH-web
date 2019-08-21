@@ -1,12 +1,32 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import { store } from '../store'
-import { ConnectedDashboard } from './Dashboard';
+import React from 'react';
+import { Route, Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+// import { ConnectedTaskDetail } from './TaskDetail'
+import { ConnectedDashboard } from './Dashboard'
+import { ConnectedNavigation } from './Navigation'
+// import { ConnectedLogin } from './Login'
+// import { ConnectedSignup } from './Signup'
+import { store } from '../store';
+import { history } from '../store/history';
+import { Redirect } from 'react-router';
 
-export const Main = () => 
-    <Provider store={store}>
-        <div>
-            <h1>Dashboard</h1>
-            <ConnectedDashboard />
-        </div>
-    </Provider>
+// const RouteGuard = Component =>({match})=>
+//     !store.getState().session.authenticated ?
+//         <Redirect to="/"/> :
+//         <Component match={match}/>;
+
+export const Main = ()=>(
+    <Router history={history}>
+        <Provider store={store}>
+            <div>
+                <ConnectedNavigation />
+                <div className="container mt-3">
+                    <Route exact
+                        path="/dashboard"
+                        render={ () => <ConnectedDashboard/> }
+                    />
+                </div>
+            </div>
+        </Provider>
+    </Router>
+);
