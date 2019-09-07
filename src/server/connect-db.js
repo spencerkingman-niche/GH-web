@@ -8,5 +8,3 @@ export async function connectDB() {
   console.info("Got DB,", db)
   return db
 }
-
-// connectDB();
